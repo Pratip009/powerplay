@@ -1,26 +1,404 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap");
+
 @import "tailwindcss";
 
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --turf: #22c55e;
+  --turf-dark: #16a34a;
+  --turf-glow: #4ade80;
+  --night: #050a0e;
+  --night-2: #0a1520;
+  --night-3: #0f1f30;
+  --slate: #1e3a50;
+  --mist: #8faabf;
+  --white: #f0f6ff;
+  --gold: #f59e0b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--night);
+  color: var(--white);
+  font-family: "DM Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: "Barlow Condensed", sans-serif;
+}
+
+.turf-texture {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 8px,
+      rgba(34, 197, 94, 0.03) 8px,
+      rgba(34, 197, 94, 0.03) 9px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 8px,
+      rgba(34, 197, 94, 0.03) 8px,
+      rgba(34, 197, 94, 0.03) 9px
+    );
+}
+
+.floodlight {
+  position: relative;
+}
+.floodlight::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(34, 197, 94, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--turf),
+    var(--turf-glow),
+    var(--turf),
+    transparent
+  );
+  box-shadow:
+    0 0 20px var(--turf),
+    0 0 40px rgba(34, 197, 94, 0.4);
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+}
+.clip-diagonal-top {
+  clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 100%);
+}
+
+.sport-card {
+  transition:
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.4s ease;
+}
+.sport-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(34, 197, 94, 0.1);
+}
+
+.stat-num {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  background: linear-gradient(135deg, var(--turf-glow), var(--turf));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-blur {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(5, 10, 14, 0.88);
+  border-bottom: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 50px rgba(34, 197, 94, 0.9),
+      0 0 90px rgba(34, 197, 94, 0.3);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.95;
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+.delay-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+.delay-2 {
+  animation-delay: 0.25s;
+  opacity: 0;
+}
+.delay-3 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+.delay-4 {
+  animation-delay: 0.55s;
+  opacity: 0;
+}
+.delay-5 {
+  animation-delay: 0.7s;
+  opacity: 0;
+}
+.delay-6 {
+  animation-delay: 0.85s;
+  opacity: 0;
+}
+
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+.marquee-track {
+  animation: marquee 25s linear infinite;
+}
+.flicker {
+  animation: flicker 4s ease-in-out infinite;
+}
+
+.section-label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--turf);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hover-lift {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ═══════════════════════════════════════
+   CUSTOM SCROLLBAR — Stadium Edition
+   ═══════════════════════════════════════ */
+
+/* Scrollbar glow keyframe */
+@keyframes scrollGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 6px rgba(34, 197, 94, 0.5),
+      0 0 18px rgba(34, 197, 94, 0.25),
+      inset 0 0 6px rgba(74, 222, 128, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 14px rgba(74, 222, 128, 0.9),
+      0 0 40px rgba(34, 197, 94, 0.45),
+      0 0 70px rgba(34, 197, 94, 0.15),
+      inset 0 0 10px rgba(74, 222, 128, 0.3);
+  }
+}
+
+@keyframes scanline {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 12px; }
+}
+
+/* ── Track ─────────────────────────────── */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 5px,
+      rgba(34, 197, 94, 0.04) 5px,
+      rgba(34, 197, 94, 0.04) 6px
+    ),
+    linear-gradient(
+      180deg,
+      var(--night) 0%,
+      var(--night-2) 40%,
+      var(--night-3) 100%
+    );
+  border-left: 1px solid rgba(34, 197, 94, 0.1);
+  border-right: 1px solid rgba(5, 10, 14, 0.8);
+}
+
+/* ── Corner ────────────────────────────── */
+::-webkit-scrollbar-corner {
+  background: var(--night);
+}
+
+/* ── Thumb ─────────────────────────────── */
+::-webkit-scrollbar-thumb {
+  position: relative;
+  background:
+    /* turf line hatching — mimics field markings */
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 10px,
+      rgba(74, 222, 128, 0.12) 10px,
+      rgba(74, 222, 128, 0.12) 11px
+    ),
+    /* core gradient */
+    linear-gradient(
+      160deg,
+      var(--turf-glow)   0%,
+      var(--turf)        35%,
+      var(--turf-dark)   65%,
+      #0d7a35            100%
+    );
+
+  border-radius: 3px;
+
+  /* inset border trick: white inner edge + dark outer edge */
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  outline: 1px solid rgba(5, 10, 14, 0.6);
+  outline-offset: -1px;
+
+  box-shadow:
+    0 0 8px  rgba(34, 197, 94, 0.5),
+    0 0 20px rgba(34, 197, 94, 0.2),
+    inset 0 1px 0 rgba(74, 222, 128, 0.55),  /* top highlight */
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),       /* bottom shadow */
+    inset 1px 0 0 rgba(74, 222, 128, 0.2),   /* left edge */
+    inset -1px 0 0 rgba(0, 0, 0, 0.4);       /* right edge */
+
+  animation: scrollGlow 3s ease-in-out infinite;
+
+  transition: border-radius 0.2s ease;
+}
+
+/* ── Thumb: Hover ───────────────────────── */
+::-webkit-scrollbar-thumb:hover {
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 8px,
+      rgba(74, 222, 128, 0.18) 8px,
+      rgba(74, 222, 128, 0.18) 9px
+    ),
+    linear-gradient(
+      160deg,
+      #86efac            0%,
+      var(--turf-glow)   30%,
+      var(--turf)        70%,
+      var(--turf-dark)   100%
+    );
+
+  border-color: rgba(74, 222, 128, 0.7);
+
+  box-shadow:
+    0 0 16px rgba(74, 222, 128, 0.85),
+    0 0 40px rgba(34, 197, 94, 0.45),
+    0 0 80px rgba(34, 197, 94, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 1px 0 0 rgba(74, 222, 128, 0.35),
+    inset -1px 0 0 rgba(0, 0, 0, 0.3);
+
+  border-radius: 5px;
+}
+
+/* ── Thumb: Active/Drag ─────────────────── */
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    160deg,
+    #bbf7d0 0%,
+    var(--turf-glow) 40%,
+    var(--turf) 100%
+  );
+
+  border-color: rgba(187, 247, 208, 0.9);
+
+  box-shadow:
+    0 0 30px rgba(74, 222, 128, 1),
+    0 0 60px rgba(34, 197, 94, 0.6),
+    0 0 100px rgba(34, 197, 94, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+
+  border-radius: 5px;
+  animation: none; /* freeze glow at full blast on drag */
+}
+
+/* ── Firefox ────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--turf) var(--night-2);
 }
