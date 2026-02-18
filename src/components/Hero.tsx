@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 
 const slides = [
   {
+    src: "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?q=80&w=976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    sport: "FOOTBALL",
+    icon: "⚽",
+    label: "5-a-side & 7-a-side Pitches",
+    accent: "#22c55e",
+  },
+  {
     src: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1400&q=80&auto=format&fit=crop",
     sport: "CRICKET",
     icon: "🏏",
@@ -11,17 +18,19 @@ const slides = [
     accent: "#f59e0b",
   },
   {
-    src: "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?q=80&w=976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    sport: "FOOTBALL",
-    icon: "⚽",
-    label: "5-a-side & 7-a-side Pitches",
-    accent: "#22c55e",
+    src: "https://images.unsplash.com/photo-1693142517898-2f986215e412?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    sport: "PICKLEBALL",
+    icon: "🏓",
+    label: "Pro Courts with LED Lighting",
+    accent: "#0ea5e9",
   },
-  
 ];
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  // `displayed` tracks which slide is actually visible (updates after fade completes)
+  // This fixes the watermark/pill showing the next sport before the image has fully changed
+  const [displayed, setDisplayed] = useState(0);
   const [fading, setFading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
@@ -40,14 +49,28 @@ export default function Hero() {
     const interval = setInterval(() => {
       setFading(true);
       setTimeout(() => {
-        setCurrent((c) => (c + 1) % slides.length);
+        const next = (current + 1) % slides.length;
+        setCurrent(next);
+        setDisplayed(next);
         setFading(false);
       }, 800);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [current]);
 
-  const slide = slides[current];
+  const goTo = (i: number) => {
+    if (i === current) return;
+    setFading(true);
+    setTimeout(() => {
+      setCurrent(i);
+      setDisplayed(i);
+      setFading(false);
+    }, 800);
+  };
+
+  // `slide` uses `displayed` so all content (watermark, pill, accent colours)
+  // stays in sync with the image that is currently visible on screen
+  const slide = slides[displayed];
 
   return (
     <section
@@ -76,11 +99,10 @@ export default function Hero() {
               priority={i === 0}
               style={{
                 objectFit: "cover",
-                // On mobile, focus more on action area
                 objectPosition: isMobile ? "60% center" : "center",
               }}
             />
-            {/* Base dark overlay — heavier on mobile for legibility */}
+            {/* Base dark overlay */}
             <div
               style={{
                 position: "absolute",
@@ -90,7 +112,7 @@ export default function Hero() {
                   : "rgba(5,10,14,0.52)",
               }}
             />
-            {/* Left heavy vignette — full width on mobile */}
+            {/* Left heavy vignette */}
             <div
               style={{
                 position: "absolute",
@@ -138,21 +160,13 @@ export default function Hero() {
             {slides.map((s, i) => (
               <button
                 key={s.sport}
-                onClick={() => {
-                  setFading(true);
-                  setTimeout(() => {
-                    setCurrent(i);
-                    setFading(false);
-                  }, 800);
-                }}
+                onClick={() => goTo(i)}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
                   background:
-                    i === current
-                      ? "rgba(5,10,14,0.85)"
-                      : "rgba(5,10,14,0.45)",
+                    i === current ? "rgba(5,10,14,0.85)" : "rgba(5,10,14,0.45)",
                   backdropFilter: "blur(12px)",
                   border: `1px solid ${i === current ? s.accent + "60" : "rgba(255,255,255,0.08)"}`,
                   borderRadius: "3px",
@@ -207,18 +221,13 @@ export default function Hero() {
             {slides.map((s, i) => (
               <button
                 key={s.sport}
-                onClick={() => {
-                  setFading(true);
-                  setTimeout(() => {
-                    setCurrent(i);
-                    setFading(false);
-                  }, 800);
-                }}
+                onClick={() => goTo(i)}
                 style={{
                   width: i === current ? "24px" : "6px",
                   height: "6px",
                   borderRadius: "3px",
-                  background: i === current ? s.accent : "rgba(255,255,255,0.25)",
+                  background:
+                    i === current ? s.accent : "rgba(255,255,255,0.25)",
                   boxShadow: i === current ? `0 0 8px ${s.accent}` : "none",
                   border: "none",
                   cursor: "pointer",
@@ -230,7 +239,7 @@ export default function Hero() {
           </div>
         )}
 
-        {/* Sport name watermark */}
+        {/* Sport name watermark — uses `slide` (synced to displayed) */}
         <div
           style={{
             position: "absolute",
@@ -261,7 +270,6 @@ export default function Hero() {
         className="absolute inset-0 overflow-hidden pointer-events-none"
         style={{ zIndex: 1 }}
       >
-        {/* Center circle — hidden on small mobile */}
         {!isMobile && (
           <>
             <div
@@ -307,9 +315,12 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── Floodlight beams — reduced/hidden on mobile ── */}
+      {/* ── Floodlight beams ── */}
       {!isMobile &&
-        [{ pos: isTablet ? "left-1/3" : "left-1/4" }, { pos: isTablet ? "left-2/3" : "left-3/4" }].map((b, i) => (
+        [
+          { pos: isTablet ? "left-1/3" : "left-1/4" },
+          { pos: isTablet ? "left-2/3" : "left-3/4" },
+        ].map((b, i) => (
           <div
             key={i}
             className={`absolute top-0 ${b.pos} pointer-events-none`}
@@ -344,13 +355,12 @@ export default function Hero() {
           padding: isMobile
             ? "100px 20px 100px"
             : isTablet
-            ? "120px 32px 110px"
-            : "112px 24px 80px",
+              ? "120px 32px 110px"
+              : "112px 24px 80px",
         }}
       >
         <div style={{ maxWidth: isTablet ? "560px" : "xl" }}>
-
-          {/* Animated sport pill */}
+          {/* Animated sport pill — uses `slide` (synced to displayed) */}
           <div
             style={{
               display: "inline-flex",
@@ -393,8 +403,8 @@ export default function Hero() {
               fontSize: isMobile
                 ? "clamp(3rem, 11vw, 4.5rem)"
                 : isTablet
-                ? "clamp(4rem, 11vw, 6.5rem)"
-                : "clamp(3.5rem, 9vw, 8rem)",
+                  ? "clamp(4rem, 11vw, 6.5rem)"
+                  : "clamp(3.5rem, 9vw, 8rem)",
               fontWeight: 900,
               lineHeight: 0.92,
               letterSpacing: "-0.01em",
@@ -455,17 +465,20 @@ export default function Hero() {
                 letterSpacing: "0.12em",
                 fontSize: isMobile ? "0.82rem" : "0.9rem",
                 boxShadow: `0 0 30px ${slide.accent}50`,
-                transition: "background 0.6s ease, box-shadow 0.6s ease, transform 0.3s ease",
+                transition:
+                  "background 0.6s ease, box-shadow 0.6s ease, transform 0.3s ease",
                 display: "inline-block",
                 padding: isMobile ? "12px 24px" : "14px 32px",
                 borderRadius: "2px",
                 textDecoration: "none",
-                // Full width on very small phones
-                width: isMobile && window?.innerWidth < 380 ? "100%" : "auto",
                 textAlign: "center",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.04)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
             >
               EXPLORE FACILITIES
             </a>
@@ -484,8 +497,12 @@ export default function Hero() {
                 borderRadius: "2px",
                 textDecoration: "none",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.04)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
             >
               OUR SPORTS ↓
             </a>
@@ -512,7 +529,9 @@ export default function Hero() {
             { num: "24/7", unit: "", label: "Floodlit access" },
           ].map((s) => (
             <div key={s.num}>
-              <div style={{ display: "flex", alignItems: "flex-end", gap: "4px" }}>
+              <div
+                style={{ display: "flex", alignItems: "flex-end", gap: "4px" }}
+              >
                 <span
                   className="stat-num"
                   style={{ fontSize: isMobile ? "2rem" : "2.8rem" }}

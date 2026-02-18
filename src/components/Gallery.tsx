@@ -6,6 +6,7 @@ const filters = [
   { id: "all", label: "All" },
   { id: "football", label: "⚽ Football" },
   { id: "cricket", label: "🏏 Cricket" },
+  { id: "pickleball", label: "🏓 Pickleball" },
   { id: "facility", label: "🏟 Facility" },
   { id: "action", label: "🔥 Action" },
 ];
@@ -34,7 +35,7 @@ const items = [
     src: "https://images.unsplash.com/photo-1695194643965-47ace39998ac?q=80&w=1026&auto=format&fit=crop",
     label: "5-a-side Match",
     sub: "Football Action",
-    tags: ["football", "action"],
+    tags: ["football", "action", "pickleball"],
     accent: "#22c55e",
     span: "",
   },
@@ -43,7 +44,7 @@ const items = [
     src: "https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1200&q=80&auto=format&fit=crop",
     label: "Premium Turf Surface",
     sub: "FIFA-Grade Synthetic",
-    tags: ["facility", "football"],
+    tags: ["facility", "football", "pickleball"],
     accent: "#22c55e",
     span: "col-span-2",
   },
@@ -61,7 +62,7 @@ const items = [
     src: "https://images.unsplash.com/photo-1685541001104-91fe7ae1d8e1?q=80&w=1332&auto=format&fit=crop",
     label: "Cricket Match Day",
     sub: "Tournament",
-    tags: ["cricket", "action"],
+    tags: ["cricket", "action", "pickleball"],
     accent: "#f59e0b",
     span: "",
   },
@@ -145,56 +146,113 @@ function Lightbox({
           animation: "lbSlideUp 0.35s cubic-bezier(0.23,1,0.32,1) forwards",
         }}
       >
-        <div style={{ position: "relative", aspectRatio: "16/9", background: "#040a12" }}>
-          <Image src={item.src} alt={item.label} fill style={{ objectFit: "cover" }} />
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(180deg, transparent 50%, rgba(2,6,10,0.9) 100%)",
-          }} />
+        <div
+          style={{
+            position: "relative",
+            aspectRatio: "16/9",
+            background: "#040a12",
+          }}
+        >
+          <Image
+            src={item.src}
+            alt={item.label}
+            fill
+            style={{ objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(180deg, transparent 50%, rgba(2,6,10,0.9) 100%)",
+            }}
+          />
           {/* Top accent line */}
-          <div style={{
-            position: "absolute", top: 0, left: 0, right: 0, height: "3px",
-            background: `linear-gradient(90deg, transparent, ${item.accent}, transparent)`,
-            boxShadow: `0 0 20px ${item.accent}`,
-          }} />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "3px",
+              background: `linear-gradient(90deg, transparent, ${item.accent}, transparent)`,
+              boxShadow: `0 0 20px ${item.accent}`,
+            }}
+          />
           {/* Info overlay */}
-          <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0,
-            padding: "clamp(1rem,3vw,1.8rem)",
-            display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem",
-          }}>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: "clamp(1rem,3vw,1.8rem)",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: "1rem",
+            }}
+          >
             <div>
-              <span style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 700, fontSize: "0.62rem",
-                letterSpacing: "0.22em", color: item.accent,
-                textTransform: "uppercase",
-                background: `${item.accent}18`,
-                border: `1px solid ${item.accent}35`,
-                borderRadius: "4px",
-                padding: "3px 9px",
-                display: "inline-block",
-                marginBottom: "0.5rem",
-              }}>
+              <span
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.22em",
+                  color: item.accent,
+                  textTransform: "uppercase",
+                  background: `${item.accent}18`,
+                  border: `1px solid ${item.accent}35`,
+                  borderRadius: "4px",
+                  padding: "3px 9px",
+                  display: "inline-block",
+                  marginBottom: "0.5rem",
+                }}
+              >
                 {item.sub}
               </span>
-              <h3 style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 900, fontSize: "clamp(1.4rem,3.5vw,2.2rem)",
-                color: "#f0f6ff", lineHeight: 1, letterSpacing: "0.02em",
-              }}>{item.label}</h3>
+              <h3
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 900,
+                  fontSize: "clamp(1.4rem,3.5vw,2.2rem)",
+                  color: "#f0f6ff",
+                  lineHeight: 1,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                {item.label}
+              </h3>
             </div>
             {/* Tag pills */}
-            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "6px",
+                flexWrap: "wrap",
+                justifyContent: "flex-end",
+              }}
+            >
               {item.tags.map((t) => (
-                <span key={t} style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
-                  fontWeight: 700, fontSize: "0.58rem",
-                  letterSpacing: "0.14em", color: "rgba(143,170,191,0.85)",
-                  background: "rgba(8,16,26,0.7)", border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: "4px", padding: "3px 8px", textTransform: "uppercase",
-                  backdropFilter: "blur(8px)",
-                }}>{t}</span>
+                <span
+                  key={t}
+                  style={{
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "0.58rem",
+                    letterSpacing: "0.14em",
+                    color: "rgba(143,170,191,0.85)",
+                    background: "rgba(8,16,26,0.7)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    borderRadius: "4px",
+                    padding: "3px 8px",
+                    textTransform: "uppercase",
+                    backdropFilter: "blur(8px)",
+                  }}
+                >
+                  {t}
+                </span>
               ))}
             </div>
           </div>
@@ -205,28 +263,60 @@ function Lightbox({
       <button
         onClick={onClose}
         style={{
-          position: "fixed", top: "clamp(1rem,3vw,2rem)", right: "clamp(1rem,3vw,2rem)",
-          width: "42px", height: "42px", borderRadius: "50%",
-          background: "rgba(8,16,26,0.85)", backdropFilter: "blur(12px)",
+          position: "fixed",
+          top: "clamp(1rem,3vw,2rem)",
+          right: "clamp(1rem,3vw,2rem)",
+          width: "42px",
+          height: "42px",
+          borderRadius: "50%",
+          background: "rgba(8,16,26,0.85)",
+          backdropFilter: "blur(12px)",
           border: "1px solid rgba(255,255,255,0.1)",
-          color: "#f0f6ff", fontSize: "1.1rem", cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
+          color: "#f0f6ff",
+          fontSize: "1.1rem",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           transition: "all 0.2s ease",
           zIndex: 10000,
         }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.2)"; (e.currentTarget as HTMLElement).style.borderColor = "#22c55e55"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(8,16,26,0.85)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; }}
-      >✕</button>
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.background =
+            "rgba(34,197,94,0.2)";
+          (e.currentTarget as HTMLElement).style.borderColor = "#22c55e55";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.background =
+            "rgba(8,16,26,0.85)";
+          (e.currentTarget as HTMLElement).style.borderColor =
+            "rgba(255,255,255,0.1)";
+        }}
+      >
+        ✕
+      </button>
 
       {/* Prev */}
       {hasPrev && (
-        <button onClick={(e) => { e.stopPropagation(); onPrev(); }} className="lb-nav lb-prev">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onPrev();
+          }}
+          className="lb-nav lb-prev"
+        >
           ‹
         </button>
       )}
       {/* Next */}
       {hasNext && (
-        <button onClick={(e) => { e.stopPropagation(); onNext(); }} className="lb-nav lb-next">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onNext();
+          }}
+          className="lb-nav lb-next"
+        >
           ›
         </button>
       )}
@@ -259,7 +349,9 @@ function GalleryCard({
         overflow: "hidden",
         cursor: "pointer",
         opacity: visible ? 1 : 0,
-        transform: visible ? "scale(1) translateY(0)" : "scale(0.93) translateY(22px)",
+        transform: visible
+          ? "scale(1) translateY(0)"
+          : "scale(0.93) translateY(22px)",
         transition: `opacity 0.6s ease ${index * 0.07}s, transform 0.6s cubic-bezier(0.23,1,0.32,1) ${index * 0.07}s`,
         border: `1px solid ${hovered ? item.accent + "40" : "rgba(255,255,255,0.045)"}`,
         boxShadow: hovered
@@ -285,102 +377,158 @@ function GalleryCard({
       />
 
       {/* Dark base */}
-      <div style={{ position: "absolute", inset: 0, background: "rgba(4,9,14,0.3)" }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(4,9,14,0.3)",
+        }}
+      />
       {/* Bottom vignette */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(180deg, transparent 35%, rgba(4,9,14,0.95) 100%)",
-        opacity: hovered ? 1 : 0.72,
-        transition: "opacity 0.4s ease",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(180deg, transparent 35%, rgba(4,9,14,0.95) 100%)",
+          opacity: hovered ? 1 : 0.72,
+          transition: "opacity 0.4s ease",
+        }}
+      />
       {/* Colour wash */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: `${item.accent}09`,
-        opacity: hovered ? 1 : 0,
-        transition: "opacity 0.45s ease",
-        mixBlendMode: "screen",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `${item.accent}09`,
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.45s ease",
+          mixBlendMode: "screen",
+        }}
+      />
       {/* Top accent bar */}
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "2px",
-        background: `linear-gradient(90deg, ${item.accent}cc, transparent)`,
-        boxShadow: `0 0 12px ${item.accent}`,
-        opacity: hovered ? 1 : 0,
-        transition: "opacity 0.3s ease",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "2px",
+          background: `linear-gradient(90deg, ${item.accent}cc, transparent)`,
+          boxShadow: `0 0 12px ${item.accent}`,
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.3s ease",
+        }}
+      />
       {/* Scanlines */}
-      <div style={{
-        position: "absolute", inset: 0,
-        backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.007) 3px, rgba(255,255,255,0.007) 4px)",
-        opacity: hovered ? 0 : 1,
-        transition: "opacity 0.4s ease",
-        pointerEvents: "none",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.007) 3px, rgba(255,255,255,0.007) 4px)",
+          opacity: hovered ? 0 : 1,
+          transition: "opacity 0.4s ease",
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Tag badge (appears on hover) */}
-      <div style={{
-        position: "absolute", top: "12px", left: "12px",
-        background: "rgba(4,9,14,0.8)",
-        backdropFilter: "blur(14px)",
-        border: `1px solid ${item.accent}35`,
-        borderRadius: "5px",
-        padding: "4px 10px",
-        transform: hovered ? "translateY(0) scale(1)" : "translateY(-6px) scale(0.92)",
-        opacity: hovered ? 1 : 0,
-        transition: "all 0.35s cubic-bezier(0.23,1,0.32,1)",
-      }}>
-        <span style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
-          fontWeight: 700, fontSize: "0.58rem",
-          letterSpacing: "0.2em", color: item.accent, textTransform: "uppercase",
-        }}>
+      <div
+        style={{
+          position: "absolute",
+          top: "12px",
+          left: "12px",
+          background: "rgba(4,9,14,0.8)",
+          backdropFilter: "blur(14px)",
+          border: `1px solid ${item.accent}35`,
+          borderRadius: "5px",
+          padding: "4px 10px",
+          transform: hovered
+            ? "translateY(0) scale(1)"
+            : "translateY(-6px) scale(0.92)",
+          opacity: hovered ? 1 : 0,
+          transition: "all 0.35s cubic-bezier(0.23,1,0.32,1)",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 700,
+            fontSize: "0.58rem",
+            letterSpacing: "0.2em",
+            color: item.accent,
+            textTransform: "uppercase",
+          }}
+        >
           {item.tags[0]}
         </span>
       </div>
 
       {/* Expand icon */}
-      <div style={{
-        position: "absolute", top: "12px", right: "12px",
-        width: "30px", height: "30px",
-        background: "rgba(4,9,14,0.7)",
-        backdropFilter: "blur(10px)",
-        border: `1px solid rgba(255,255,255,0.1)`,
-        borderRadius: "6px",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        opacity: hovered ? 1 : 0,
-        transform: hovered ? "scale(1)" : "scale(0.8)",
-        transition: "all 0.35s ease",
-        color: "rgba(240,246,255,0.8)",
-        fontSize: "0.7rem",
-      }}>⤢</div>
+      <div
+        style={{
+          position: "absolute",
+          top: "12px",
+          right: "12px",
+          width: "30px",
+          height: "30px",
+          background: "rgba(4,9,14,0.7)",
+          backdropFilter: "blur(10px)",
+          border: `1px solid rgba(255,255,255,0.1)`,
+          borderRadius: "6px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          opacity: hovered ? 1 : 0,
+          transform: hovered ? "scale(1)" : "scale(0.8)",
+          transition: "all 0.35s ease",
+          color: "rgba(240,246,255,0.8)",
+          fontSize: "0.7rem",
+        }}
+      >
+        ⤢
+      </div>
 
       {/* Bottom label */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0,
-        padding: "clamp(0.75rem,2vw,1rem) clamp(0.9rem,2.5vw,1.2rem)",
-        transform: hovered ? "translateY(0)" : "translateY(5px)",
-        transition: "transform 0.4s ease",
-      }}>
-        <p style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
-          fontWeight: 800,
-          fontSize: "clamp(0.9rem,1.8vw,1.1rem)",
-          color: "#f0f6ff", lineHeight: 1.1,
-          letterSpacing: "0.03em", marginBottom: "3px",
-          textShadow: "0 2px 8px rgba(0,0,0,0.8)",
-        }}>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "clamp(0.75rem,2vw,1rem) clamp(0.9rem,2.5vw,1.2rem)",
+          transform: hovered ? "translateY(0)" : "translateY(5px)",
+          transition: "transform 0.4s ease",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 800,
+            fontSize: "clamp(0.9rem,1.8vw,1.1rem)",
+            color: "#f0f6ff",
+            lineHeight: 1.1,
+            letterSpacing: "0.03em",
+            marginBottom: "3px",
+            textShadow: "0 2px 8px rgba(0,0,0,0.8)",
+          }}
+        >
           {item.label}
         </p>
-        <p style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
-          fontWeight: 600, fontSize: "0.6rem",
-          letterSpacing: "0.2em", color: item.accent,
-          textTransform: "uppercase",
-          opacity: hovered ? 1 : 0.55,
-          transition: "opacity 0.3s ease",
-          textShadow: `0 0 12px ${item.accent}`,
-        }}>
+        <p
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 600,
+            fontSize: "0.6rem",
+            letterSpacing: "0.2em",
+            color: item.accent,
+            textTransform: "uppercase",
+            opacity: hovered ? 1 : 0.55,
+            transition: "opacity 0.3s ease",
+            textShadow: `0 0 12px ${item.accent}`,
+          }}
+        >
           {item.sub}
         </p>
       </div>
@@ -401,8 +549,10 @@ export default function Gallery() {
     const el = headerRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setHeaderVisible(true); },
-      { threshold: 0.1 }
+      ([entry]) => {
+        if (entry.isIntersecting) setHeaderVisible(true);
+      },
+      { threshold: 0.1 },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -413,15 +563,29 @@ export default function Gallery() {
     setAnimating(true);
     setActiveFilter(id);
     setTimeout(() => {
-      setDisplayed(id === "all" ? items : items.filter((item) => item.tags.includes(id)));
+      setDisplayed(
+        id === "all" ? items : items.filter((item) => item.tags.includes(id)),
+      );
       setAnimating(false);
     }, 280);
   };
 
-  const openLightbox = useCallback((index: number) => setLightboxIndex(index), []);
+  const openLightbox = useCallback(
+    (index: number) => setLightboxIndex(index),
+    [],
+  );
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-  const prevPhoto = useCallback(() => setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i)), []);
-  const nextPhoto = useCallback(() => setLightboxIndex((i) => (i !== null && i < displayed.length - 1 ? i + 1 : i)), [displayed.length]);
+  const prevPhoto = useCallback(
+    () => setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i)),
+    [],
+  );
+  const nextPhoto = useCallback(
+    () =>
+      setLightboxIndex((i) =>
+        i !== null && i < displayed.length - 1 ? i + 1 : i,
+      ),
+    [displayed.length],
+  );
 
   return (
     <section
@@ -434,26 +598,52 @@ export default function Gallery() {
       }}
     >
       {/* Ambient blobs */}
-      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
-        <div style={{
-          position: "absolute", width: "700px", height: "700px", borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(34,197,94,0.05) 0%, transparent 70%)",
-          top: "-10%", right: "-15%", filter: "blur(65px)",
-          animation: "gBlob1 18s ease-in-out infinite",
-        }} />
-        <div style={{
-          position: "absolute", width: "600px", height: "600px", borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(245,158,11,0.045) 0%, transparent 70%)",
-          bottom: "-10%", left: "-15%", filter: "blur(65px)",
-          animation: "gBlob2 22s ease-in-out infinite",
-        }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "700px",
+            height: "700px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(34,197,94,0.05) 0%, transparent 70%)",
+            top: "-10%",
+            right: "-15%",
+            filter: "blur(65px)",
+            animation: "gBlob1 18s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            width: "600px",
+            height: "600px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(245,158,11,0.045) 0%, transparent 70%)",
+            bottom: "-10%",
+            left: "-15%",
+            filter: "blur(65px)",
+            animation: "gBlob2 22s ease-in-out infinite",
+          }}
+        />
         {/* Grid */}
-        <div style={{
-          position: "absolute", inset: 0,
-          backgroundImage: `
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `
             repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(34,197,94,0.01) 80px, rgba(34,197,94,0.01) 81px),
             repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(34,197,94,0.01) 80px, rgba(34,197,94,0.01) 81px)`,
-        }} />
+          }}
+        />
       </div>
 
       <div
@@ -482,38 +672,64 @@ export default function Gallery() {
           }}
         >
           <div>
-            <p style={{
-              display: "flex", alignItems: "center", gap: "10px",
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 700, fontSize: "0.7rem",
-              letterSpacing: "0.25em", textTransform: "uppercase",
-              color: "var(--turf, #22c55e)", marginBottom: "0.85rem",
-            }}>
-              <span style={{ width: "24px", height: "1px", background: "#22c55e", display: "inline-block" }} />
+            <p
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 700,
+                fontSize: "0.7rem",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                color: "var(--turf, #22c55e)",
+                marginBottom: "0.85rem",
+              }}
+            >
+              <span
+                style={{
+                  width: "24px",
+                  height: "1px",
+                  background: "#22c55e",
+                  display: "inline-block",
+                }}
+              />
               Visual Highlights
             </p>
-            <h2 style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontSize: "clamp(2.4rem, 6vw, 4.5rem)",
-              fontWeight: 900, color: "#f0f6ff",
-              lineHeight: 0.9, letterSpacing: "-0.01em",
-            }}>
+            <h2
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontSize: "clamp(2.4rem, 6vw, 4.5rem)",
+                fontWeight: 900,
+                color: "#f0f6ff",
+                lineHeight: 0.9,
+                letterSpacing: "-0.01em",
+              }}
+            >
               THE ARENA
               <br />
-              <span style={{
-                color: "var(--turf, #22c55e)",
-                fontStyle: "italic",
-                textShadow: "0 0 55px rgba(34,197,94,0.45)",
-              }}>
+              <span
+                style={{
+                  color: "var(--turf, #22c55e)",
+                  fontStyle: "italic",
+                  textShadow: "0 0 55px rgba(34,197,94,0.45)",
+                }}
+              >
                 IN ACTION.
               </span>
             </h2>
           </div>
-          <p style={{
-            color: "rgba(143,170,191,0.72)", fontSize: "clamp(0.78rem,1.5vw,0.88rem)",
-            maxWidth: "260px", lineHeight: 1.72, fontWeight: 300,
-          }}>
-            From floodlit night fixtures to elite training sessions — PowerPlay never stops.
+          <p
+            style={{
+              color: "rgba(143,170,191,0.72)",
+              fontSize: "clamp(0.78rem,1.5vw,0.88rem)",
+              maxWidth: "260px",
+              lineHeight: 1.72,
+              fontWeight: 300,
+            }}
+          >
+            From floodlit night fixtures to elite training sessions — PowerPlay
+            never stops.
           </p>
         </div>
 
@@ -560,15 +776,20 @@ export default function Gallery() {
                 onMouseEnter={(e) => {
                   if (!isActive) {
                     (e.currentTarget as HTMLElement).style.color = "#f0f6ff";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.18)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.05)";
+                    (e.currentTarget as HTMLElement).style.borderColor =
+                      "rgba(255,255,255,0.18)";
+                    (e.currentTarget as HTMLElement).style.background =
+                      "rgba(255,255,255,0.05)";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    (e.currentTarget as HTMLElement).style.color = "rgba(143,170,191,0.65)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.025)";
+                    (e.currentTarget as HTMLElement).style.color =
+                      "rgba(143,170,191,0.65)";
+                    (e.currentTarget as HTMLElement).style.borderColor =
+                      "rgba(255,255,255,0.07)";
+                    (e.currentTarget as HTMLElement).style.background =
+                      "rgba(255,255,255,0.025)";
                   }
                 }}
               >
@@ -578,28 +799,41 @@ export default function Gallery() {
           })}
 
           {/* Count pill */}
-          <div style={{
-            marginLeft: "auto",
-            display: "flex", alignItems: "center", gap: "6px",
-            background: "rgba(34,197,94,0.08)",
-            border: "1px solid rgba(34,197,94,0.18)",
-            borderRadius: "6px",
-            padding: "6px 12px",
-          }}>
-            <span style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 900, fontStyle: "italic",
-              fontSize: "clamp(1rem,2vw,1.35rem)", color: "#22c55e",
-              lineHeight: 1, textShadow: "0 0 14px rgba(34,197,94,0.6)",
-            }}>
+          <div
+            style={{
+              marginLeft: "auto",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              background: "rgba(34,197,94,0.08)",
+              border: "1px solid rgba(34,197,94,0.18)",
+              borderRadius: "6px",
+              padding: "6px 12px",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,
+                fontStyle: "italic",
+                fontSize: "clamp(1rem,2vw,1.35rem)",
+                color: "#22c55e",
+                lineHeight: 1,
+                textShadow: "0 0 14px rgba(34,197,94,0.6)",
+              }}
+            >
               {displayed.length}
             </span>
-            <span style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 700, fontSize: "0.6rem",
-              letterSpacing: "0.15em", color: "rgba(143,170,191,0.7)",
-              textTransform: "uppercase",
-            }}>
+            <span
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 700,
+                fontSize: "0.6rem",
+                letterSpacing: "0.15em",
+                color: "rgba(143,170,191,0.7)",
+                textTransform: "uppercase",
+              }}
+            >
               Photos
             </span>
           </div>
@@ -614,7 +848,9 @@ export default function Gallery() {
             gridAutoRows: "clamp(160px,18vw,220px)",
             gap: "clamp(6px,1.2vw,12px)",
             opacity: animating ? 0 : 1,
-            transform: animating ? "scale(0.98) translateY(6px)" : "scale(1) translateY(0)",
+            transform: animating
+              ? "scale(0.98) translateY(6px)"
+              : "scale(1) translateY(0)",
             transition: "opacity 0.28s ease, transform 0.28s ease",
           }}
         >
@@ -624,7 +860,8 @@ export default function Gallery() {
             let gridRow = "span 1";
             if (!isFiltered) {
               if (item.span === "col-span-2 row-span-2") {
-                gridColumn = "span 2"; gridRow = "span 2";
+                gridColumn = "span 2";
+                gridRow = "span 2";
               } else if (item.span === "col-span-2") {
                 gridColumn = "span 2";
               }
@@ -644,16 +881,31 @@ export default function Gallery() {
 
         {/* Empty state */}
         {displayed.length === 0 && (
-          <div style={{
-            textAlign: "center", padding: "5rem 2rem",
-            animation: "fadeIn 0.4s ease forwards",
-          }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem", filter: "grayscale(1) opacity(0.5)" }}>📷</div>
-            <p style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 700, fontSize: "1.1rem",
-              color: "rgba(143,170,191,0.5)", letterSpacing: "0.1em",
-            }}>
+          <div
+            style={{
+              textAlign: "center",
+              padding: "5rem 2rem",
+              animation: "fadeIn 0.4s ease forwards",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "3rem",
+                marginBottom: "1rem",
+                filter: "grayscale(1) opacity(0.5)",
+              }}
+            >
+              📷
+            </div>
+            <p
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 700,
+                fontSize: "1.1rem",
+                color: "rgba(143,170,191,0.5)",
+                letterSpacing: "0.1em",
+              }}
+            >
               No photos in this category yet
             </p>
           </div>
