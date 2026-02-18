@@ -4,19 +4,20 @@ import { useEffect, useState } from "react";
 
 const slides = [
   {
-    src: "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?q=80&w=976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    sport: "FOOTBALL",
-    icon: "⚽",
-    label: "5-a-side & 7-a-side Pitches",
-    accent: "#22c55e",
-  },
-  {
     src: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1400&q=80&auto=format&fit=crop",
     sport: "CRICKET",
     icon: "🏏",
     label: "Practice Nets & Turf Pitches",
     accent: "#f59e0b",
   },
+  {
+    src: "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?q=80&w=976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    sport: "FOOTBALL",
+    icon: "⚽",
+    label: "5-a-side & 7-a-side Pitches",
+    accent: "#22c55e",
+  },
+  
 ];
 
 export default function Hero() {
@@ -390,7 +391,7 @@ export default function Hero() {
             className="font-display animate-fade-up delay-2"
             style={{
               fontSize: isMobile
-                ? "clamp(3rem, 16vw, 4.5rem)"
+                ? "clamp(3rem, 11vw, 4.5rem)"
                 : isTablet
                 ? "clamp(4rem, 11vw, 6.5rem)"
                 : "clamp(3.5rem, 9vw, 8rem)",
