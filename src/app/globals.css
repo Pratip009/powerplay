@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-  --turf: #BBCE1E;
+  --turf: #bbce1e;
   --turf-dark: #a1af27;
   --turf-glow: #cadf14;
   --night: #050a0e;
@@ -124,7 +124,45 @@ body {
   background: rgba(5, 10, 14, 0.88);
   border-bottom: 1px solid rgba(34, 197, 94, 0.15);
 }
-
+@keyframes logoPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 22px rgba(34, 197, 94, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 38px rgba(34, 197, 94, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+@keyframes menuBlob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-30px, 40px) scale(1.1);
+  }
+}
+@keyframes menuBlob2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+}
+.nav-cta-wrap {
+  display: none;
+}
+@media (min-width: 640px) {
+  .nav-cta-wrap {
+    display: block;
+  }
+}
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -253,7 +291,8 @@ body {
 
 /* Scrollbar glow keyframe */
 @keyframes scrollGlow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow:
       0 0 6px rgba(34, 197, 94, 0.5),
       0 0 18px rgba(34, 197, 94, 0.25),
@@ -269,8 +308,12 @@ body {
 }
 
 @keyframes scanline {
-  0%   { background-position: 0 0; }
-  100% { background-position: 0 12px; }
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 12px;
+  }
 }
 
 /* ── Track ─────────────────────────────── */
@@ -316,12 +359,12 @@ body {
     ),
     /* core gradient */
     linear-gradient(
-      160deg,
-      var(--turf-glow)   0%,
-      var(--turf)        35%,
-      var(--turf-dark)   65%,
-      #0d7a35            100%
-    );
+        160deg,
+        var(--turf-glow) 0%,
+        var(--turf) 35%,
+        var(--turf-dark) 65%,
+        #0d7a35 100%
+      );
 
   border-radius: 3px;
 
@@ -331,12 +374,12 @@ body {
   outline-offset: -1px;
 
   box-shadow:
-    0 0 8px  rgba(34, 197, 94, 0.5),
+    0 0 8px rgba(34, 197, 94, 0.5),
     0 0 20px rgba(34, 197, 94, 0.2),
-    inset 0 1px 0 rgba(74, 222, 128, 0.55),  /* top highlight */
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),       /* bottom shadow */
-    inset 1px 0 0 rgba(74, 222, 128, 0.2),   /* left edge */
-    inset -1px 0 0 rgba(0, 0, 0, 0.4);       /* right edge */
+    inset 0 1px 0 rgba(74, 222, 128, 0.55),
+    /* top highlight */ inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    /* bottom shadow */ inset 1px 0 0 rgba(74, 222, 128, 0.2),
+    /* left edge */ inset -1px 0 0 rgba(0, 0, 0, 0.4); /* right edge */
 
   animation: scrollGlow 3s ease-in-out infinite;
 
@@ -355,10 +398,10 @@ body {
     ),
     linear-gradient(
       160deg,
-      #86efac            0%,
-      var(--turf-glow)   30%,
-      var(--turf)        70%,
-      var(--turf-dark)   100%
+      #86efac 0%,
+      var(--turf-glow) 30%,
+      var(--turf) 70%,
+      var(--turf-dark) 100%
     );
 
   border-color: rgba(74, 222, 128, 0.7);

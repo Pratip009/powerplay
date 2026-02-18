@@ -371,8 +371,11 @@ export default function Footer() {
           {/* Contact mini */}
           <FooterCol title="Contact Us" delay={0.25} visible={visible}>
             {[
-              { icon: "📍", text: "Main Road, Your City" },
-              { icon: "📞", text: "+91 98765 43210" },
+              {
+                icon: "📍",
+                text: "310/311, East Ghoshpara Road, Pinkal, Shyamnagar, Kolkata, North 24 PGS.-743127",
+              },
+              { icon: "📞", text: "+91 79808 85889" },
               { icon: "✉️", text: "hello@powerplayturf.com" },
               { icon: "⏰", text: "6AM – 11PM · 7 days" },
             ].map((item, i) => (

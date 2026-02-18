@@ -150,16 +150,7 @@ export default function Navbar() {
         setActiveLink={setActiveLink}
       />
 
-      <style>{`
-        @keyframes logoPulse {
-          0%,100% { box-shadow: 0 0 22px rgba(34,197,94,0.45), inset 0 1px 0 rgba(255,255,255,0.2); }
-          50%      { box-shadow: 0 0 38px rgba(34,197,94,0.7), inset 0 1px 0 rgba(255,255,255,0.2); }
-        }
-        .nav-cta-wrap { display: none; }
-        @media (min-width: 640px) {
-          .nav-cta-wrap { display: block; }
-        }
-      `}</style>
+      
     </>
   );
 }
@@ -859,16 +850,7 @@ function MenuOverlay({
         </div>
       </div>
 
-      <style>{`
-        @keyframes menuBlob {
-          0%,100% { transform: translate(0,0) scale(1); }
-          50% { transform: translate(-30px,40px) scale(1.1); }
-        }
-        @keyframes menuBlob2 {
-          0%,100% { transform: translate(0,0) scale(1); }
-          50% { transform: translate(40px,-30px) scale(1.08); }
-        }
-      `}</style>
+    
     </>
   );
 }
