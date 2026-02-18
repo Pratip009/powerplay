@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 
 const WORDS = ["SPEED.", "POWER.", "PRECISION.", "GLORY."];
-const WORD_COLORS = ["#22c55e", "#38bdf8", "#a78bfa", "#f59e0b"];
+const WORD_COLORS = ["#BBCE1E", "#38bdf8", "#a78bfa", "#f59e0b"];
 
 export default function Loader() {
   const [phase, setPhase]             = useState<"boot"|"wordflash"|"logo"|"exit"|"done">("boot");
@@ -30,7 +30,7 @@ export default function Loader() {
       const newPs = Array.from({ length: 14 }, () => {
         const angle = Math.random() * Math.PI * 2;
         const speed = 1.2 + Math.random() * 3.5;
-        const colors = ["#22c55e","#4ade80","#86efac","#f59e0b","#ffffff","#38bdf8"];
+        const colors = ["#BBCE1E","#A3B121","#86efac","#f59e0b","#ffffff","#38bdf8"];
         const shapes = ["circle","diamond","star"];
         return {
           id: particleIdRef.current++,
@@ -437,10 +437,7 @@ export default function Loader() {
               transition: "transform 0.75s cubic-bezier(0.34,1.56,0.64,1)",
               position: "relative", zIndex: 1,
             }}>
-              <svg width="clamp(26px,5vw,36px)" height="clamp(26px,5vw,36px)" viewBox="0 0 20 20" fill="none">
-                <polygon points="3,17 10,3 17,17" fill="white" opacity="0.96"/>
-                <polygon points="6,17 10,9 14,17" fill="rgba(0,0,0,0.3)"/>
-              </svg>
+              
             </div>
           </div>
 
@@ -458,8 +455,8 @@ export default function Loader() {
             }}>
               <span>POWER</span>
               <span style={{
-                color: "#22c55e",
-                textShadow: "0 0 50px rgba(34,197,94,0.65), 0 0 100px rgba(34,197,94,0.22)",
+                color: "#BBCE1E",
+                textShadow: "0 0 50px rgba(187,206,30,0.65), 0 0 100px rgba(187,206,30,0.22)",
               }}>PLAY</span>
             </h1>
           </div>
@@ -499,6 +496,7 @@ export default function Loader() {
             {[
               { e: "⚽", l: "Football", color: "#22c55e" },
               { e: "🏏", l: "Cricket", color: "#f59e0b" },
+              { e: "🏓", l: "Pickleball", color: "#BBCE1E" },
             ].map((s, i) => (
               <div key={s.l} style={{
                 textAlign: "center",

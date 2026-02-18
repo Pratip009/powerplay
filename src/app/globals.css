@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 :root {
-  --turf: #22c55e;
-  --turf-dark: #16a34a;
-  --turf-glow: #4ade80;
+  --turf: #BBCE1E;
+  --turf-dark: #a1af27;
+  --turf-glow: #cadf14;
   --night: #050a0e;
   --night-2: #0a1520;
   --night-3: #0f1f30;

@@ -8,7 +8,7 @@ const slides = [
     sport: "FOOTBALL",
     icon: "⚽",
     label: "5-a-side & 7-a-side Pitches",
-    accent: "#22c55e",
+    accent: "#cadf14",
   },
   {
     src: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1400&q=80&auto=format&fit=crop",
