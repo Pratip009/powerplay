@@ -9,6 +9,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import Loader from "@/components/Loader";
+import ScrollToTop from "@/components/Scrolltotop";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <Gallery />
         <About />
         <Contact />
+        <ScrollToTop/>
       </main>
       <Footer />
     </>

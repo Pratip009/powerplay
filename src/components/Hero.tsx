@@ -524,7 +524,11 @@ export default function Hero() {
           }}
         >
           {[
-            { num: "2", unit: "SPORTS", label: "Football & Cricket" },
+            {
+              num: "3",
+              unit: "SPORTS",
+              label: "Pickleball , Football & Cricket",
+            },
             { num: "6", unit: "COURTS", label: "All-weather surfaces" },
             { num: "24/7", unit: "", label: "Floodlit access" },
           ].map((s) => (

@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 const items = [
   "⚽ Football",
   "🏏 Cricket",
+  "🏓 Pickleball",
   "🔥 Floodlit Courts",
   "🏆 Tournaments",
   "💪 Training Sessions",

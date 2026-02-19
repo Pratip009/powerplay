@@ -350,7 +350,7 @@ export default function About() {
               {[
                 { val: "5+", label: "Years Running", accent: "#22c55e" },
                 { val: "10K+", label: "Sessions Booked", accent: "#38bdf8" },
-                { val: "2", label: "Premium Sports", accent: "#f59e0b" },
+                { val: "3", label: "Premium Sports", accent: "#f59e0b" },
               ].map((s) => (
                 <div key={s.label} style={{
                   textAlign: "center",

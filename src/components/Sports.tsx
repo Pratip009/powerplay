@@ -483,6 +483,15 @@ function SportCard({
             {/* CTA button */}
             <button
               className="card-cta"
+              onClick={() => {
+                const contactSection = document.getElementById("contact");
+                if (contactSection) {
+                  contactSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }
+              }}
               style={{
                 marginTop: "1.8rem",
                 background: `linear-gradient(135deg, ${sport.accent}22, ${sport.accent}08)`,
@@ -830,7 +839,7 @@ export default function Sports() {
               marginBottom: "0",
             }}
           >
-            TWO SPORTS.
+            THREE SPORTS.
             <br />
             <span
               style={{
